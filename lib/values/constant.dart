@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
-import 'export.dart';
 
 DateTime? currentBackPressTime;
 Future<bool> onWillPop() {
@@ -26,9 +23,9 @@ Future<bool> onWillPop() {
 //       fontSize: 16.0);
 // }
 
-showCustomSnackBar(String message, {bool isError = true}) {
-  Get.showSnackbar(GetBar(
-    backgroundColor: isError ? Colors.red : Colors.green,
-    title: message,
-  ));
-}
+// showCustomSnackBar(String message, {bool isError = true}) {
+//   Get.showSnackbar(GetBar(
+//     backgroundColor: isError ? Colors.red : Colors.green,
+//     title: message,
+//   ));
+// }

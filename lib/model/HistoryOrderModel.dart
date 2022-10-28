@@ -5,7 +5,6 @@ class FinishOrderModel {
   bool? status;
   String? message;
   List<OrderId>? orderId;
-
   FinishOrderModel({this.code, this.status, this.message, this.orderId});
 
   FinishOrderModel.fromJson(Map<String, dynamic> json) {
@@ -44,7 +43,6 @@ class OrderId {
   String? tax;
   String? time;
   String? day;
-
   String? mobile;
   String? discount;
   String? cartonId;
@@ -91,7 +89,6 @@ class OrderId {
     tax = json['tax'];
     time = json['time'];
     day = json['day'];
-
     mobile = json['mobile'];
     discount = json['discount'];
     cartonId = json['carton_id'];
@@ -119,7 +116,6 @@ class OrderId {
     data['tax'] = this.tax;
     data['time'] = this.time;
     data['day'] = this.day;
-
     data['mobile'] = this.mobile;
     data['discount'] = this.discount;
     data['carton_id'] = this.cartonId;

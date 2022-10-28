@@ -1,5 +1,6 @@
 import 'package:delivery_boy/controller/controller_auth.dart';
 import 'package:delivery_boy/controller/controller_order.dart';
+import 'package:delivery_boy/print/invoice_settings.controller.dart';
 import 'package:delivery_boy/splash.dart';
 import 'package:delivery_boy/values/export.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -36,8 +37,12 @@ class _MyAppState extends State<MyApp> {
     Get.lazyPut(() => AppController(), fenix: false);
     Get.lazyPut(() => AuthController(), fenix: false);
     Get.put(
+      InvoiceSettingsController(),
+    );
+    Get.put(
       OrderController(),
     );
+
     Get.lazyPut(() => CategorieController(), fenix: false);
     Get.lazyPut(() => ProfileController(), fenix: false);
     super.initState();

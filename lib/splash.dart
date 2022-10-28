@@ -1,6 +1,5 @@
 import 'package:delivery_boy/values/export.dart';
 import 'package:get/get.dart';
-import 'view/custom_widget/background.dart';
 
 class Splash extends StatefulWidget {
   @override

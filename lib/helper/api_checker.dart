@@ -19,8 +19,10 @@ class ApiChecker {
         _errorMessage = apiResponse.error.errors[0].message;
       }
       print(_errorMessage);
+      // ignore: deprecated_member_use
       Get.showSnackbar(GetBar(
-        messageText: Text(_errorMessage!, style: TextStyle(color: Colors.white)),
+        messageText:
+            Text(_errorMessage!, style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.red,
       ));
     }

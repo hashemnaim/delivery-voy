@@ -7,6 +7,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
+import '../server/server_order.dart';
+
 class FcmHelper {
   // FCM Messaging
   FcmHelper._internal();
@@ -35,6 +37,9 @@ class FcmHelper {
 
       FirebaseMessaging.onMessage.listen(_fcmForegroundHandler);
       FirebaseMessaging.onBackgroundMessage(_fcmBackgroundHandler);
+      FirebaseMessaging.onBackgroundMessage((RemoteMessage message) async {
+        return print("onBackgroundMessage");
+      });
 
       listenToActionButtons();
     } catch (error) {
@@ -106,9 +111,14 @@ class FcmHelper {
   static Future<void> _fcmForegroundHandler(RemoteMessage message) async {
     _showNotification(
       id: 1,
-      title: message.notification?.title ?? 'Tittle',
-      body: message.notification?.body ?? 'Body',
+      title: message.notification!.title ?? 'Tittle',
+      body: message.notification!.body ?? 'Body',
     );
+    if (message.notification!.body!.contains("التوصيل")) {
+      return ServerOrder.instance.getOrders();
+    }
+
+    // ServerOrder.instance.getOrderFinish();
   }
 
   //display notification for user with sound

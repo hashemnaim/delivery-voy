@@ -2,7 +2,6 @@ class DetailsProductModel {
   String? code;
   bool? status;
   Orders? orders;
-
   DetailsProductModel({this.code, this.status, this.orders});
 
   DetailsProductModel.fromJson(Map<String, dynamic> json) {
@@ -35,7 +34,6 @@ class Orders {
   String? statusCode;
   List<Products>? products;
   List<Cartons>? cartons;
-  Null? balance;
   String? cash;
   Address? address;
 
@@ -51,7 +49,6 @@ class Orders {
       this.statusCode,
       this.products,
       this.cartons,
-      this.balance,
       this.cash,
       this.address});
 
@@ -77,7 +74,6 @@ class Orders {
         cartons!.add(new Cartons.fromJson(v));
       });
     }
-    balance = json['balance'];
     cash = json['cash'];
     address =
         json['address'] != null ? new Address.fromJson(json['address']) : null;
@@ -100,7 +96,6 @@ class Orders {
     if (this.cartons != null) {
       data['cartons'] = this.cartons!.map((v) => v.toJson()).toList();
     }
-    data['balance'] = this.balance;
     data['cash'] = this.cash;
     if (this.address != null) {
       data['address'] = this.address!.toJson();
@@ -136,13 +131,13 @@ class Products {
   Products.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
-    price = json['price'];
+    price = double.parse(json['price']).toStringAsFixed(1);
     categoryId = json['category_id'];
     unit = json['unit'];
     maxQty = json['max_qty'];
     points = json['points'];
     stock = json['stock'];
-    quantity = json['quantity'];
+    quantity = double.parse(json['quantity']).toStringAsFixed(1);
     image = json['image'];
   }
 
@@ -156,7 +151,7 @@ class Products {
     data['max_qty'] = this.maxQty;
     data['points'] = this.points;
     data['stock'] = this.stock;
-    data['quantity'] = this.quantity;
+    data['quantity'] = double.parse(this.quantity!).toStringAsFixed(1);
     data['image'] = this.image;
     return data;
   }
@@ -187,8 +182,9 @@ class Cartons {
     orderId = json['order_id'];
     cartonId = json['carton_id'];
     cartonName = json['carton_name'];
-    cartonPrice = json['carton_price'];
-    quantity = json['quantity'];
+    cartonPrice = double.parse(json['carton_price']).toStringAsFixed(1);
+    quantity = double.parse(json['quantity']).toStringAsFixed(1);
+    ;
     totalPrice = json['total_price'];
     image = json['image'];
   }

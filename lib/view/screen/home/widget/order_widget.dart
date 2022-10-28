@@ -10,6 +10,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../helper/method_helpar.dart';
+
 class OrderWidget extends StatelessWidget {
   final List<Processing>? orderModel;
   final int index;
@@ -39,7 +41,7 @@ class OrderWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CustomText(
-                  text: '#${orderModel![index].id.toString()}',
+                  text: '#${orderModel![index].code.toString()}',
                   fontSize: 25.sp,
                   fontWeight: FontWeight.w600,
                 ),
@@ -80,12 +82,46 @@ class OrderWidget extends StatelessWidget {
                 ),
                 SizedBox(width: 8),
                 Expanded(
-                    child: CustomText(
-                  text: orderModel![index].shippingAddress!.street,
-                )),
+                    child: orderModel![index].shippingAddress == null
+                        ? Container()
+                        : CustomText(
+                            text: orderModel![index].shippingAddress!.street,
+                          )),
               ],
             ),
-            SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Row(children: [
+                    Container(
+                        height: 10,
+                        width: 10,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle, color: AppColors.primary)),
+                    SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                    CustomText(
+                      text: 'تاريخ : ${orderModel![index].day}',
+                      fontSize: Dimensions.FONT_SIZE_LARGE,
+                    ),
+                  ]),
+                  Spacer(),
+                  Row(children: [
+                    Container(
+                        height: 10,
+                        width: 10,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle, color: AppColors.primary)),
+                    SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                    CustomText(
+                      text: 'الفترة : ${getPeriod(orderModel![index].time!)}',
+                      fontSize: Dimensions.FONT_SIZE_LARGE,
+                    ),
+                  ]),
+                  SizedBox(width: Dimensions.PADDING_SIZE_LARGE),
+                ],
+              ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

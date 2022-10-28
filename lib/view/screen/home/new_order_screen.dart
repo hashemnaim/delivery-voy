@@ -1,10 +1,8 @@
 import 'package:delivery_boy/controller/controller_order.dart';
 import 'package:delivery_boy/server/server_order.dart';
 import 'package:delivery_boy/values/export.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
-import '../order/widget/permission_dialog.dart';
 import 'widget/order_widget.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -61,37 +59,5 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             )));
-  }
-
-  void checkPermission(BuildContext context, Function callback) async {
-    LocationPermission permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-    }
-    if (permission == LocationPermission.denied) {
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (context) => PermissionDialog(
-              isDenied: true,
-              onPressed: () async {
-                Navigator.pop(context);
-                await Geolocator.requestPermission();
-                checkPermission(context, callback);
-              }));
-    } else if (permission == LocationPermission.deniedForever) {
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (context) => PermissionDialog(
-              isDenied: false,
-              onPressed: () async {
-                Navigator.pop(context);
-                await Geolocator.openAppSettings();
-                checkPermission(context, callback);
-              }));
-    } else {
-      callback();
-    }
   }
 }

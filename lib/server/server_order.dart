@@ -7,7 +7,6 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart' as getx;
 
 import '../helper/fcm_helper.dart';
-import '../helper/notifications_helpers.dart';
 
 class ServerOrder {
   ServerOrder._();

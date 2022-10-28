@@ -9,6 +9,7 @@ class Launcher {
   }
 
   launchWhatsapp(String phone) {
+    // ignore: deprecated_member_use
     launch("https://wa.me/$phone?text=");
   }
 

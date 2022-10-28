@@ -3,10 +3,13 @@ import 'package:delivery_boy/controller/controller_order.dart';
 
 import 'package:delivery_boy/values/dimensions.dart';
 import 'package:delivery_boy/values/export.dart';
+
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sunmi_printer_plus/sunmi_printer_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../../helper/method_helpar.dart';
 import '../../../model/order_modal.dart';
 import '../../../server/server_order.dart';
 import '../../../values/styles.dart';
@@ -17,10 +20,26 @@ import 'widget/delivery_dialog.dart';
 import 'widget/permission_dialog.dart';
 import 'widget/slider_button.dart';
 
-class OrderDetailsScreen extends StatelessWidget {
+class OrderDetailsScreen extends StatefulWidget {
   final User? user;
   final int index;
-  OrderDetailsScreen({this.user, required this.index});
+
+  OrderDetailsScreen({
+    this.user,
+    required this.index,
+  });
+
+  @override
+  State<OrderDetailsScreen> createState() => _OrderDetailsScreenState();
+}
+
+class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
+  @override
+  void initState() {
+    super.initState();
+    // orderController.begin.value = false;
+    SunmiPrinter.bindingPrinter();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +54,16 @@ class OrderDetailsScreen extends StatelessWidget {
                     color: Theme.of(context).textTheme.bodyText1!.color),
                 onPressed: () {
                   ServerOrder.instance.getOrders();
+                },
+              ),
+              IconButton(
+                icon: Icon(Icons.print,
+                    color: Theme.of(context).textTheme.bodyText1!.color),
+                onPressed: () async {
+                  orderController
+                      .printSunmi(orderController.detailsProdact.value.orders!);
+                  // orderController.invoiceBuilder(
+                  //     orderController.detailsProdact.value.orders!);
                 },
               ),
             ],
@@ -60,43 +89,62 @@ class OrderDetailsScreen extends StatelessWidget {
                     image: ExactAssetImage("assets/images/background.png"),
                     fit: BoxFit.fill)),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
                   child: ListView(
                     physics: BouncingScrollPhysics(),
                     padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
                     children: [
-                      Row(children: [
-                        Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              CustomText(
+                      CustomText(
+                        text:
+                            ' # ${orderController.detailsProdact.value.orders!.code}',
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      Row(
+                        children: [
+                          Row(children: [
+                            Container(
+                                height: 10,
+                                width: 10,
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: AppColors.primary)),
+                            SizedBox(
+                                width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                            CustomText(
                                 text:
-                                    ' # ${orderController.detailsProdact.value.orders!.orderId}',
-                                fontSize: 26,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ],
-                          ),
-                        ),
-                        Row(children: [
-                          Container(
-                              height: 10,
-                              width: 10,
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: AppColors.primary)),
-                          SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                          CustomText(
-                              text:
-                                  'تاريخ : ${orderController.detailsProdact.value.orders!.date}',
-                              fontSize: Dimensions.FONT_SIZE_LARGE,
-                              color:
-                                  Theme.of(context).textTheme.bodyText1!.color),
-                        ]),
-                      ]),
-                      SizedBox(height: 20),
+                                    'تاريخ : ${orderController.detailsProdact.value.orders!.date}',
+                                fontSize: Dimensions.FONT_SIZE_LARGE,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1!
+                                    .color),
+                          ]),
+                          Spacer(),
+                          Row(children: [
+                            Container(
+                                height: 10,
+                                width: 10,
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: AppColors.primary)),
+                            SizedBox(
+                                width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                            CustomText(
+                                text:
+                                    'الفترة : ${getPeriod(orderController.detailsProdact.value.orders!.time!)}',
+                                fontSize: Dimensions.FONT_SIZE_LARGE,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1!
+                                    .color),
+                          ]),
+                          SizedBox(width: 4.w),
+                        ],
+                      ),
+                      SizedBox(height: 8.h),
                       Container(
                         padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
                         decoration: BoxDecoration(
@@ -113,22 +161,19 @@ class OrderDetailsScreen extends StatelessWidget {
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(
-                                height: 5,
-                              ),
                               Row(children: [
                                 Icon(
                                   Icons.person,
                                   color: Colors.white,
                                 ),
                                 CustomText(
-                                    text: '${user!.name ?? ''}',
+                                    text: '${widget.user!.name ?? ''}',
                                     color: AppColors.bluColor,
-                                    fontSize: Dimensions.FONT_SIZE_DEFAULT),
+                                    fontSize: Dimensions.FONT_SIZE_LARGE),
                                 Spacer(),
                                 InkWell(
                                   onTap: () {
-                                    launch('tel:${user!.mobile ?? ""}');
+                                    launch('tel:${widget.user!.mobile ?? ""}');
                                   },
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
@@ -138,7 +183,7 @@ class OrderDetailsScreen extends StatelessWidget {
                                         color: AppColors.bluColor,
                                       ),
                                       CustomText(
-                                          text: ' ${user!.mobile ?? ''}',
+                                          text: ' ${widget.user!.mobile ?? ''}',
                                           color: AppColors.bluColor,
                                           fontSize:
                                               Dimensions.FONT_SIZE_DEFAULT),
@@ -146,35 +191,90 @@ class OrderDetailsScreen extends StatelessWidget {
                                   ),
                                 ),
                               ]),
-                              SizedBox(
-                                height: 5,
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.location_on,
+                                    color: AppColors.primary,
+                                    size: 30,
+                                  ),
+                                  SizedBox(width: 5),
+                                  Expanded(
+                                      child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      CustomText(
+                                          text: orderController.detailsProdact
+                                                      .value.orders!.address !=
+                                                  null
+                                              ? orderController
+                                                      .detailsProdact
+                                                      .value
+                                                      .orders!
+                                                      .address!
+                                                      .city! +
+                                                  " - " +
+                                                  orderController
+                                                      .detailsProdact
+                                                      .value
+                                                      .orders!
+                                                      .address!
+                                                      .area!
+                                              : 'العنوان غير موجود',
+                                          fontSize: 14.sp,
+                                          color: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1!
+                                              .color),
+                                      CustomText(
+                                          text: orderController.detailsProdact
+                                                      .value.orders!.address !=
+                                                  null
+                                              ? orderController
+                                                  .detailsProdact
+                                                  .value
+                                                  .orders!
+                                                  .address!
+                                                  .street!
+                                              : 'العنوان غير موجود',
+                                          fontSize: 14.sp,
+                                          color: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1!
+                                              .color),
+                                      CustomText(
+                                          text: orderController.detailsProdact
+                                                      .value.orders!.address !=
+                                                  null
+                                              ? " عمارة رقم : " +
+                                                  orderController
+                                                      .detailsProdact
+                                                      .value
+                                                      .orders!
+                                                      .address!
+                                                      .building! +
+                                                  "\t " +
+                                                  " شقة رقم : " +
+                                                  orderController
+                                                      .detailsProdact
+                                                      .value
+                                                      .orders!
+                                                      .address!
+                                                      .apartment!
+                                              : 'العنوان غير موجود',
+                                          fontSize: 14.sp,
+                                          color: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1!
+                                              .color),
+                                    ],
+                                  )),
+                                ],
                               ),
                             ]),
                       ),
-                      SizedBox(height: 10),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.location_on,
-                            color: AppColors.primary,
-                          ),
-                          SizedBox(width: 5),
-                          Expanded(
-                              child: CustomText(
-                                  text: orderController.detailsProdact.value
-                                              .orders!.address !=
-                                          null
-                                      ? orderController.detailsProdact.value
-                                              .orders!.address!.street ??
-                                          ""
-                                      : 'العنوان غير موجود',
-                                  fontSize: 14.sp,
-                                  color: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1!
-                                      .color)),
-                        ],
-                      ),
+                      SizedBox(height: 8.h),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -218,7 +318,7 @@ class OrderDetailsScreen extends StatelessWidget {
                                       " جنيه",
                                   style: rubikMedium.copyWith(fontSize: 14.sp)),
                               leading: SizedBox(
-                                width: 145.w,
+                                width: 140.w,
                                 child: Row(
                                   children: [
                                     CustomNetworkImage(
@@ -226,15 +326,18 @@ class OrderDetailsScreen extends StatelessWidget {
                                           orderController.detailsProdact.value
                                               .orders!.products![index2].image!,
                                       borderRadius: 0,
-                                      width: 45.w,
+                                      width: 40.w,
                                       fit: BoxFit.contain,
                                     ),
-                                    SizedBox(width: 5.w),
-                                    Text(
-                                        orderController.detailsProdact.value
-                                            .orders!.products![index2].name!,
-                                        style: rubikMedium.copyWith(
-                                            fontSize: 14.sp)),
+                                    SizedBox(width: 4.w),
+                                    Container(
+                                      width: 90.w,
+                                      child: Text(
+                                          orderController.detailsProdact.value
+                                              .orders!.products![index2].name!,
+                                          style: rubikMedium.copyWith(
+                                              fontSize: 14.sp)),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -352,11 +455,11 @@ class OrderDetailsScreen extends StatelessWidget {
                                                         .value
                                                         .orders!
                                                         .orderId,
-                                                    user!.fcmToken!);
+                                                    widget.user!.fcmToken!);
                                             Get.to(() => MainScreen());
                                           },
                                           title: 'المبلغ المستحق ',
-                                          index: index,
+                                          index: widget.index,
                                           totalPrice: (double.parse(
                                                   orderController
                                                       .detailsProdact
