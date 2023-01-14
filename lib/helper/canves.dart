@@ -4,8 +4,8 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 
-import '../model/detailsProduct_model.dart';
-import '../view/screen/order/fatora.dart';
+import '../module/laundry_delivary/orders/model/detailsProduct_model.dart';
+import '../module/print/fatora.dart';
 
 class UiImagePainter extends CustomPainter {
   final ui.Image image;
@@ -58,7 +58,7 @@ class UiImageDrawer extends StatelessWidget {
 
 class Capturer extends StatefulWidget {
   static final Random random = Random();
-  final Orders? map;
+  final DetailsOrderModel? map;
   final GlobalKey<OverRepaintBoundaryState>? overRepaintKey;
 
   Capturer({this.overRepaintKey, this.map});
@@ -73,7 +73,6 @@ class _CapturerState extends State<Capturer> {
   ByteData? byteData;
   String? bs64;
   Uint8List? uint8List;
-  // BluetoothPrint bluetoothPrint = BluetoothPrint.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -102,56 +101,6 @@ class _CapturerState extends State<Capturer> {
                         ),
                       ),
                     ),
-//                     PurchasePageWidget(
-//                       purchaseMap: widget.map,
-//                       print: () async {
-//                         print("000000000000000");
-
-//                         // var renderObject =
-//                         //     globalKey.currentContext!.findRenderObject();
-
-//                         RenderRepaintBoundary? boundary = globalKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
-//                         ui.Image captureImage = await boundary.toImage();
-//                         print(captureImage);
-//                         byteData = await captureImage.toByteData(
-//                             format: ui.ImageByteFormat.png);
-//                         uint8List = byteData!.buffer.asUint8List();
-//                         bs64 = base64Encode(uint8List!);
-//                         print(bs64);
-// // SunmiPrinter.image(bs64);
-//                         // if (appGet.isconnected.value == false) {
-//                         //   print("test");
-
-//                         //   Get.defaultDialog(
-//                         //       title: "Select the printer",
-//                         //       onCancel: () {
-//                         //         navigator.pop();
-//                         //       },
-//                         //       content: PrintImage(
-//                         //         img: bs64,
-//                         //       ));
-//                         // } else {
-//                         //   Map<String, dynamic> config = Map();
-//                         //   config['width'] = 40;
-//                         //   config['height'] = 70;
-//                         //   config['gap'] = 2;
-
-//                         //   List<LineText> list1 = List();
-//                         //   list1.add(LineText(
-//                         //     type: LineText.TYPE_IMAGE,
-//                         //     x: 10,
-//                         //     y: 10,
-//                         //     content: bs64,
-//                         //   ));
-
-//                         //   await bluetoothPrint.printReceipt(config, list1);
-//                         // }
-//                         // await captureImage.toByteData(
-//                         //     format: ui.ImageByteFormat.png);
-
-//                         // setState(() => image = captureImage);
-//                       },
-//                     ),
                   ],
                 ),
               ),

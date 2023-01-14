@@ -1,4 +1,8 @@
+import 'dart:developer';
+
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../module/profile/user_model.dart';
 
 class SHelper {
   SHelper._();
@@ -13,6 +17,15 @@ class SHelper {
     } else {
       return sharedPreferences;
     }
+  }
+
+  Future<UserData> addUser(UserData user) async {
+    sharedPreferences = await initSharedPrefrences();
+    log(user.name!);
+    sharedPreferences!.setString("name", user.name!);
+    sharedPreferences!.setString("phone", user.phone!);
+    sharedPreferences!.setString("id", user.id.toString());
+    return user;
   }
 
   addNew(String key, String value) async {

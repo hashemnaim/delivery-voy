@@ -1,5 +1,5 @@
 import 'package:delivery_boy/server/base/api_response.dart';
-import 'package:delivery_boy/view/screen/auth_screen/logIn_screen.dart';
+import 'package:delivery_boy/module/Auth/view/screen/logIn_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -18,7 +18,6 @@ class ApiChecker {
       } else {
         _errorMessage = apiResponse.error.errors[0].message;
       }
-      print(_errorMessage);
       // ignore: deprecated_member_use
       Get.showSnackbar(GetBar(
         messageText:

@@ -1,13 +1,13 @@
 import 'dart:developer';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:delivery_boy/services/s_helpar.dart';
+import 'package:delivery_boy/helper/shared_preferences_helpar.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
-import '../server/server_order.dart';
+import '../module/laundry_delivary/orders/server/server_order.dart';
 
 class FcmHelper {
   // FCM Messaging
@@ -37,9 +37,9 @@ class FcmHelper {
 
       FirebaseMessaging.onMessage.listen(_fcmForegroundHandler);
       FirebaseMessaging.onBackgroundMessage(_fcmBackgroundHandler);
-      FirebaseMessaging.onBackgroundMessage((RemoteMessage message) async {
-        return print("onBackgroundMessage");
-      });
+      // FirebaseMessaging.onBackgroundMessage((RemoteMessage message) async {
+      //   return print("onBackgroundMessage");
+      // });
 
       listenToActionButtons();
     } catch (error) {
@@ -49,12 +49,12 @@ class FcmHelper {
 
   /// when user click on notification or click on button on the notification
   static listenToActionButtons() {
-    awesomeNotifications.actionStream.listen(
-      (ReceivedNotification receivedNotification) async {
-        // for ex:
-        //Get.toNamed(Routes.NOTIFICATIONS)
-      },
-    );
+    // awesomeNotifications.actionStream.listen(
+    //   (ReceivedNotification receivedNotification) async {
+    //     // for ex:
+    //     //Get.toNamed(Routes.NOTIFICATIONS)
+    //   },
+    // );
   }
 
   ///handle fcm notification settings (sound,badge..etc)
@@ -80,10 +80,8 @@ class FcmHelper {
     try {
       var token = await messaging.getToken();
       if (token != null) {
-        SHelper.sHelper.setFcmToken(token);
+        await SHelper.sHelper.setFcmToken(token);
         _sendFcmTokenToServer();
-
-        log(token.toString());
       } else {
         // retry generating token
         await Future.delayed(const Duration(seconds: 5));
@@ -111,12 +109,12 @@ class FcmHelper {
   static Future<void> _fcmForegroundHandler(RemoteMessage message) async {
     _showNotification(
       id: 1,
-      title: message.notification!.title ?? 'Tittle',
-      body: message.notification!.body ?? 'Body',
+      title: message.notification!.title ?? 'title',
+      body: message.notification!.body ?? 'body',
     );
-    if (message.notification!.body!.contains("التوصيل")) {
-      return ServerOrder.instance.getOrders();
-    }
+    // if (message.notification!.title!.contains("رقم الطلب")) {
+    ServerOrder.instance.getOrders();
+    // }
 
     // ServerOrder.instance.getOrderFinish();
   }
@@ -128,7 +126,6 @@ class FcmHelper {
       required int id,
       String? channelKey,
       String? groupKey,
-      NotificationLayout? notificationLayout,
       String? summary,
       Map<String, String>? payload,
       String? largeIcon}) async {
@@ -148,8 +145,8 @@ class FcmHelper {
                 true, // Hide/show the time elapsed since notification was displayed
             payload:
                 payload, // data of the notification (it will be used when user clicks on notification)
-            notificationLayout:
-                notificationLayout, // notification shape (message,media player..etc) For ex => NotificationLayout.Messaging
+            notificationLayout: NotificationLayout
+                .Default, // notification shape (message,media player..etc) For ex => NotificationLayout.Messaging
             autoDismissible:
                 true, // dismiss notification when user clicks on it
             summary:
@@ -178,7 +175,7 @@ class FcmHelper {
       var rsponce =
           await _dio.post(url, options: Options(headers: headerMap), data: {
         "to": fcmToken,
-        "notification": {"body": "تم تسليم الطلب بنجاح", "title": "كابوتشا"},
+        "notification": {"body": "تم تسليم الطلب بنجاح", "title": "Mr Clean"},
         "priority": "high",
         "data": {
           "click_action": "FLUTTER_NOTIFICATION_CLICK",
@@ -186,7 +183,6 @@ class FcmHelper {
           "chat_message": "1"
         }
       });
-      log(rsponce.data.toString());
       return true;
     } on DioError {}
   }
@@ -223,11 +219,11 @@ class FcmHelper {
         ],
         channelGroups: [
           NotificationChannelGroup(
-            channelGroupkey: NotificationChannels.generalChannelGroupKey,
+            channelGroupKey: NotificationChannels.generalChannelGroupKey,
             channelGroupName: NotificationChannels.generalChannelGroupName,
           ),
           NotificationChannelGroup(
-            channelGroupkey: NotificationChannels.chatChannelGroupKey,
+            channelGroupKey: NotificationChannels.chatChannelGroupKey,
             channelGroupName: NotificationChannels.chatChannelGroupName,
           )
         ]);

@@ -7,8 +7,6 @@ import 'package:geocoding/geocoding.dart' as geocoding;
 class LocationHelper {
   Geolocator? geolocator;
 
-  // MapController mapController = Get.find();
-
   Future<Position> getCurrentLocation() async {
     try {
       Position position = await determinePosition();
