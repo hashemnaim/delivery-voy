@@ -19,27 +19,28 @@ class BaseClient {
     required Function(dio.Response response) onSuccess,
     Function? onLoading,
   }) async {
-    // try {
-    onLoading?.call();
-    var response = await _dio
-        .get(
-          url,
-          queryParameters: queryParameters,
-          options: dio.Options(
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer ${SHelper.sHelper.getToken()}'
-            },
-          ),
-        )
-        .timeout(const Duration(seconds: TIME_OUT_DURATION));
+    try {
+      log(SHelper.sHelper.getToken().toString());
+      onLoading?.call();
+      var response = await _dio
+          .get(
+            url,
+            queryParameters: queryParameters,
+            options: dio.Options(
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ${SHelper.sHelper.getToken()}'
+              },
+            ),
+          )
+          .timeout(const Duration(seconds: TIME_OUT_DURATION));
 
-    await onSuccess(response);
-    // } on dio.DioError catch (error) {
-    //   log(error.message);
-    //   BotToast.closeAllLoading();
-    //   return handleDioError(error);
-    // }
+      await onSuccess(response);
+    } on dio.DioError catch (error) {
+      log(error.message);
+      BotToast.closeAllLoading();
+      return handleDioError(error);
+    }
   }
 
   post(

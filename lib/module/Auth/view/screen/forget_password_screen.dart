@@ -11,11 +11,8 @@ class ForgetScreen extends StatefulWidget {
 
 class _ProdactScreenState extends State<ForgetScreen>
     with SingleTickerProviderStateMixin {
-//List<DataProdacts> dataProdacts=[];
-
   @override
   Widget build(BuildContext context) {
-    // getTap();
     return Directionality(
       textDirection: TextDirection.rtl,
       child: SafeArea(
@@ -37,8 +34,6 @@ class _ProdactScreenState extends State<ForgetScreen>
                     child: Column(
                       children: [
                         Container(
-
-                            // padding: EdgeInsets.only(right: 20),
                             height: 60,
                             width: 300,
                             child: TextFormField(
@@ -49,10 +44,9 @@ class _ProdactScreenState extends State<ForgetScreen>
                                     fillColor: Colors.white,
                                     hintText: "ادخل البريد الكتروني ",
                                     hintStyle: GoogleFonts.cairo(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 14,
-                                      color: Colors.grey,
-                                    ),
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 14,
+                                        color: Colors.grey),
                                     border: OutlineInputBorder(
                                         borderSide: BorderSide.none,
                                         borderRadius:
@@ -69,12 +63,8 @@ class _ProdactScreenState extends State<ForgetScreen>
                                   ),
                                 ],
                                 color: Colors.white)),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        CustomButton(
-                          text: "ارسال",
-                        ),
+                        SizedBox(height: 10),
+                        CustomButton(text: "ارسال"),
                       ],
                     ),
                   ),

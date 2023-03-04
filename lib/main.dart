@@ -1,9 +1,9 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:delivery_boy/module/init_binding.dart';
 import 'package:delivery_boy/routes/app_pages.dart';
 import 'package:delivery_boy/translations/localization_service.dart';
 import 'package:delivery_boy/translations/tanslation_controller.dart';
 import 'package:delivery_boy/utils/export.dart';
+import 'package:delivery_boy/utils/theme/my_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -39,7 +39,9 @@ class _MyAppState extends State<MyApp> {
               builder: BotToastInit(), //1. call BotToastInit
               navigatorObservers: [BotToastNavigatorObserver()],
               debugShowCheckedModeBanner: false,
-              locale: Get.find<MyLocaleController>().iniallingLang,
+              locale: Locale("ar"),
+              theme: MyTheme.getThemeData(isLight: true),
+              // Get.find<MyLocaleController>().iniallingLang,
               translations: LocalizationService(),
               getPages: AppPages.routes,
               initialRoute: Routes.SPLASH,

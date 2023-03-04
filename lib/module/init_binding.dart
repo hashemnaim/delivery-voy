@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
 import 'controller_app.dart';
-import 'laundry_delivary/orders/controller/controller_order.dart';
+import 'orders/controller/controller_order.dart';
 
 class initBinding extends Bindings {
   @override

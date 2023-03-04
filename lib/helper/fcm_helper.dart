@@ -6,8 +6,9 @@ import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-
-import '../module/laundry_delivary/orders/server/server_order.dart';
+import 'package:get/get.dart';
+import '../module/orders/server/server_order.dart';
+import 'background.dart';
 
 class FcmHelper {
   // FCM Messaging
@@ -41,7 +42,7 @@ class FcmHelper {
       //   return print("onBackgroundMessage");
       // });
 
-      listenToActionButtons();
+      // listenToActionButtons();
     } catch (error) {
       // print(error);
     }
@@ -81,7 +82,9 @@ class FcmHelper {
       var token = await messaging.getToken();
       if (token != null) {
         await SHelper.sHelper.setFcmToken(token);
+        log("=====>" + token);
         _sendFcmTokenToServer();
+        log("=====>" + token);
       } else {
         // retry generating token
         await Future.delayed(const Duration(seconds: 5));
@@ -107,13 +110,24 @@ class FcmHelper {
 
   //handle fcm notification when app is open
   static Future<void> _fcmForegroundHandler(RemoteMessage message) async {
-    _showNotification(
-      id: 1,
-      title: message.notification!.title ?? 'title',
-      body: message.notification!.body ?? 'body',
-    );
+    await ServerOrder.instance.getOrders();
+
+    log(message.notification!.body.toString());
+    log(SHelper.sHelper.getFcmToken()!);
+
+    if (message.notification!.body == "طلبك طلب  للمغسلة") {
+      Get.off(() => ParticleBackgroundPage());
+    } else {
+      // _showNotification(
+      //   id: 1,
+      //   title: message.notification!.title ?? 'title',
+      //   body: message.notification!.body ?? 'body',
+      // );
+    }
+
     // if (message.notification!.title!.contains("رقم الطلب")) {
-    ServerOrder.instance.getOrders();
+
+    // ServerOrder.instance.getOrders();
     // }
 
     // ServerOrder.instance.getOrderFinish();
@@ -172,10 +186,9 @@ class FcmHelper {
             "key=AAAA752iX5U:APA91bH8TTWc3cH4jtedzZDgZ5szTDdtnabYTCr3WPpB50f3oMpKwNLzyVDruda2im9cFcdiqM88603mNm6si0ZLtFEajC96CK8idKeyq-v_mwpYUdGSQPVXdPHBq-r8yBK8vR_LwkX4"
       };
 
-      var rsponce =
-          await _dio.post(url, options: Options(headers: headerMap), data: {
+      await _dio.post(url, options: Options(headers: headerMap), data: {
         "to": fcmToken,
-        "notification": {"body": "تم تسليم الطلب بنجاح", "title": "Mr Clean"},
+        "notification": {"body": "تم تسليم الطلب بنجاح", "title": "Voy"},
         "priority": "high",
         "data": {
           "click_action": "FLUTTER_NOTIFICATION_CLICK",

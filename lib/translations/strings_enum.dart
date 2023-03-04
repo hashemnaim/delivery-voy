@@ -21,6 +21,7 @@ class AppStrings {
   //order
 
   static const String noRequests = 'No Requests';
+  static const String newOrder = 'new Order';
   static const String noReceived = 'No received';
   static const String total = 'Total';
   static const String carpets = 'carpets';

@@ -1,9 +1,7 @@
-// import 'package:date_time_picker/date_time_picker.dart' as piker;
 import 'package:delivery_boy/utils/export.dart';
 import 'package:intl/intl.dart' as i;
-import '../laundry_delivary/orders/model/detailsProduct_model.dart';
+import '../orders/model/detailsProduct_model.dart';
 import '../Widget/custom_divider.dart';
-
 import '../../utils/styles.dart';
 
 class FatoraScreen extends StatelessWidget {

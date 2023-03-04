@@ -4,7 +4,7 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 
-import '../module/laundry_delivary/orders/model/detailsProduct_model.dart';
+import '../module/orders/model/detailsProduct_model.dart';
 import '../module/print/fatora.dart';
 
 class UiImagePainter extends CustomPainter {

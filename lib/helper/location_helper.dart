@@ -6,14 +6,11 @@ import 'package:geocoding/geocoding.dart' as geocoding;
 
 class LocationHelper {
   Geolocator? geolocator;
-
   Future<Position> getCurrentLocation() async {
     try {
       Position position = await determinePosition();
-
       return position;
     } catch (e) {
-      // mapController.loadAddress.value = false;
       return Position(
           latitude: 21.506845,
           longitude: 39.852190,
@@ -85,12 +82,8 @@ class LocationHelper {
             const Icon(
               Icons.my_location_outlined,
             ),
-            const SizedBox(
-              height: 26,
-            ),
-            const Text(
-              'تفعيل الموقع',
-            ),
+            const SizedBox(height: 26),
+            const Text('تفعيل الموقع'),
             const SizedBox(height: 8),
             Container(
               constraints: const BoxConstraints(maxWidth: 235),
@@ -99,11 +92,10 @@ class LocationHelper {
             ),
             const SizedBox(height: 44),
             TextButton(
-              onPressed: () {
-                Geolocator.openLocationSettings();
-              },
-              child: const Text('تمكين موقعي'),
-            )
+                onPressed: () {
+                  Geolocator.openLocationSettings();
+                },
+                child: const Text('تمكين موقعي'))
           ],
         ),
         onWillPop: () {

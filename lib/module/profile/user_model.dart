@@ -63,7 +63,7 @@ class UserData {
   UserData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
 
-    name = json['name'];
+    name = json['business_name'];
     phone = json['phone'];
     roolId = json['rool_id'];
     fcm_token = json['fcm_token'];

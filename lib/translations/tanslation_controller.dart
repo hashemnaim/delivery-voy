@@ -7,7 +7,8 @@ class MyLocaleController extends GetxController {
       ? Get.deviceLocale!
       : Locale(SHelper.sHelper.getLanguge()!);
   Rx<String> languageView = (SHelper.sHelper.getLanguge() == null
-          ? Get.deviceLocale!.languageCode
+          ? "ar"
+          // Get.deviceLocale!.languageCode
           : SHelper.sHelper.getLanguge()!)
       .obs;
   updateLanguage(String languageCode) async {

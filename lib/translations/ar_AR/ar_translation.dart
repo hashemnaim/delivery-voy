@@ -11,6 +11,7 @@ final Map<String, String> arAR = {
   AppStrings.apiNotFound: 'الرابط الذي تحاول الوصول اليه غير موجود!',
   AppStrings.serverError: 'مشكلة من السيرفر',
   AppStrings.currency: 'ريال',
+  AppStrings.newOrder: 'طلب جديد',
 
   //Auth
   AppStrings.mobile: 'الجوال',

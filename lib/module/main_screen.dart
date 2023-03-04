@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import '../translations/tanslation_controller.dart';
 import '../utils/export.dart';
 import 'Widget/custom_dialoug.dart';
-import 'laundry_delivary/orders/server/server_order.dart';
-import 'laundry_delivary/orders/view/receipt_view/widget/nav_bar_custom.dart';
+import 'orders/server/server_order.dart';
+import 'orders/view/receipt_view/widget/nav_bar_custom.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -74,7 +74,7 @@ class _MainScreenState extends State<MainScreen> {
                       fontSize: 20.h))
                 ]))),
             centerTitle: true,
-            title: CustomPngImage("icon", height: 140, width: 180)),
+            title: CustomPngImage("logo", height: 140, width: 180)),
         backgroundColor: Colors.transparent,
         resizeToAvoidBottomInset: false,
         bottomNavigationBar: NavBottomBarCustom(),

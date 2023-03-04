@@ -6,7 +6,7 @@ import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:google_api_headers/google_api_headers.dart';
 
-import '../Data/constants.dart';
+import '../../utils/constants.dart';
 import '../Services/location_services.dart';
 import '../Services/polyline_services.dart';
 

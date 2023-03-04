@@ -7,11 +7,11 @@ import 'package:get/get.dart';
 import 'invoice_settings.controller.dart';
 
 class Capture {
-  static InvoiceSettingsController inoviceControl =
-      Get.find<InvoiceSettingsController>();
+  // static InvoiceSettingsController inoviceControl =
+  //     Get.find<InvoiceSettingsController>();
 
   static Future<void> invoiceCapture(GlobalKey key) async {
-    inoviceControl.invoiceAsImage.value = await capture(key);
+    // inoviceControl.invoiceAsImage.value = await capture(key);
     // Get.back();
   }
 

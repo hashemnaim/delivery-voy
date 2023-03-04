@@ -1,18 +1,15 @@
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:sunmi_printer_plus/column_maker.dart';
 import 'package:sunmi_printer_plus/enums.dart';
 import 'package:sunmi_printer_plus/sunmi_printer_plus.dart';
 import 'package:sunmi_printer_plus/sunmi_style.dart';
 import 'package:image/image.dart' as im;
-
-import '../laundry_delivary/orders/model/detailsProduct_model.dart';
-import '../laundry_delivary/orders/model/product_order_model.dart';
+import '../orders/model/detailsProduct_model.dart';
 import 'invoice_settings.controller.dart';
 
 class PrintController extends GetxController {
-  InvoiceSettingsController inoviceControl =
-      Get.find<InvoiceSettingsController>();
+  // InvoiceSettingsController inoviceControl =
+  //     Get.find<InvoiceSettingsController>();
 
   //      else {
   //   String sp = " ";
@@ -21,25 +18,25 @@ class PrintController extends GetxController {
   //   }
   //   return s + sp;
   // }
-  invoiceBuilder(DataDetails orderDetails) async {
-    // final CapabilityProfile profile = await CapabilityProfile.load();
+  // invoiceBuilder(DataDetails orderDetails) async {
+  //   // final CapabilityProfile profile = await CapabilityProfile.load();
 
-    // final generator = Generator(PaperSize.mm58, profile);
+  //   // final generator = Generator(PaperSize.mm58, profile);
 
-    await inoviceControl.invoiceBuilder(orderDetails);
+  //   await inoviceControl.invoiceBuilder(orderDetails);
 
-    List<int> bytes = [];
+  //   List<int> bytes = [];
 
-    // ignore: unused_local_variable
-    im.Image? image;
-    image = im.decodeImage(inoviceControl.invoiceAsImage);
+  //   // ignore: unused_local_variable
+  //   im.Image? image;
+  //   image = im.decodeImage(inoviceControl.invoiceAsImage);
 
-    // bytes += generator.image(image!);
+  //   // bytes += generator.image(image!);
 
-    // bytes += generator.feed(2);
-    // bytes += generator.cut();
-    await printSunmiPrinter(bytes);
-  }
+  //   // bytes += generator.feed(2);
+  //   // bytes += generator.cut();
+  //   await printSunmiPrinter(bytes);
+  // }
 
   Future<void> printSunmiPrinter(List<int> orderBytes) async {
     final bool? result = await SunmiPrinter.bindingPrinter();
@@ -91,7 +88,7 @@ class PrintController extends GetxController {
             fontSize: SunmiFontSize.MD,
             bold: true,
             align: SunmiPrintAlign.RIGHT));
-    await SunmiPrinter.printText("الدفع : كاش",
+    await SunmiPrinter.printText("الدفع : ${order.deliveryPrice}",
         style: SunmiStyle(
             fontSize: SunmiFontSize.MD,
             bold: true,

@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import '../../helper/location_helper.dart';
 import '../../helper/shared_preferences_helpar.dart';
 import '../../routes/app_pages.dart';
-import '../laundry_delivary/orders/server/server_order.dart';
 
 class MyMiddleWare extends GetMiddleware {
   @override

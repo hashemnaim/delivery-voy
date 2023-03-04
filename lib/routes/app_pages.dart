@@ -5,7 +5,6 @@ import '../module/Auth/controller/auth_binding.dart';
 import '../module/Auth/view/screen/logIn_screen.dart';
 import '../module/main_binding.dart';
 import '../module/main_screen.dart';
-import '../module/middleware/mymiddleware.dart';
 import '../module/splash_screen.dart';
 
 part 'app_routes.dart';

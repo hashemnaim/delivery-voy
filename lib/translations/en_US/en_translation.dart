@@ -13,6 +13,7 @@ const Map<String, String> enUs = {
   AppStrings.currency: 'SAR',
 
   //Auth
+  AppStrings.newOrder: 'New Order',
   AppStrings.mobile: 'Mobile',
   AppStrings.password: 'Password',
   AppStrings.signin: 'Sign In',
