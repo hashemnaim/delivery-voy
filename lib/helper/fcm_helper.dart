@@ -1,4 +1,4 @@
-import 'dart:developer';
+import 'dart:async';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:delivery_boy/helper/shared_preferences_helpar.dart';
@@ -6,8 +6,10 @@ import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../module/laundry_delivary/orders/server/server_order.dart';
+import 'background.dart';
 
 class FcmHelper {
   // FCM Messaging
@@ -107,16 +109,19 @@ class FcmHelper {
 
   //handle fcm notification when app is open
   static Future<void> _fcmForegroundHandler(RemoteMessage message) async {
-    _showNotification(
-      id: 1,
-      title: message.notification!.title ?? 'title',
-      body: message.notification!.body ?? 'body',
-    );
-    // if (message.notification!.title!.contains("رقم الطلب")) {
-    ServerOrder.instance.getOrders();
-    // }
+    await ServerOrder.instance.getOrders();
 
-    // ServerOrder.instance.getOrderFinish();
+    if (message.notification!.body == "طلبك المغسلة الى الديليفري") {
+      Get.off(() => ParticleBackgroundPage());
+    } else {
+      // if (message.notification!.body == "طلبك المغسلة الى الديليفري")
+      // return;
+      // _showNotification(
+      //   id: 1,
+      //   title: message.notification!.title ?? 'title',
+      //   body: message.notification!.body ?? 'body',
+      // );
+    }
   }
 
   //display notification for user with sound
@@ -142,7 +147,7 @@ class FcmHelper {
             groupKey: groupKey ?? NotificationChannels.generalGroupKey,
             channelKey: channelKey ?? NotificationChannels.generalChannelKey,
             showWhen:
-                true, // Hide/show the time elapsed since notification was displayed
+                false, // Hide/show the time elapsed since notification was displayed
             payload:
                 payload, // data of the notification (it will be used when user clicks on notification)
             notificationLayout: NotificationLayout
@@ -172,8 +177,7 @@ class FcmHelper {
             "key=AAAA752iX5U:APA91bH8TTWc3cH4jtedzZDgZ5szTDdtnabYTCr3WPpB50f3oMpKwNLzyVDruda2im9cFcdiqM88603mNm6si0ZLtFEajC96CK8idKeyq-v_mwpYUdGSQPVXdPHBq-r8yBK8vR_LwkX4"
       };
 
-      var rsponce =
-          await _dio.post(url, options: Options(headers: headerMap), data: {
+      await _dio.post(url, options: Options(headers: headerMap), data: {
         "to": fcmToken,
         "notification": {"body": "تم تسليم الطلب بنجاح", "title": "Mr Clean"},
         "priority": "high",

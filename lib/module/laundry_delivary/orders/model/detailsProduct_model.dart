@@ -40,6 +40,7 @@ class DataDetails {
   String? receiptDate;
   String? deliveryDate;
   String? delivery;
+  String? payment;
   num? subTotal;
   num? deliveryPrice;
   num? total;
@@ -59,6 +60,7 @@ class DataDetails {
       this.receiptDate,
       this.deliveryDate,
       this.delivery,
+      this.payment,
       this.subTotal,
       this.deliveryPrice,
       this.total,
@@ -78,6 +80,7 @@ class DataDetails {
     receiptDate = json['receipt_date'];
     deliveryDate = json['delivery_date'];
     delivery = json['delivery'];
+    payment = json['payment'];
     subTotal = json['sub_total'];
     deliveryPrice = json['delivery_price'];
     total = json['total'];

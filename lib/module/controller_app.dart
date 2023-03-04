@@ -12,13 +12,29 @@ import 'laundry_delivary/orders/view/receipt_view/screen/receipt_screen.dart';
 class AppController extends GetxController {
   String? token;
   int? selectedPageIndex = 0;
-
   List<Widget> screens = [
     ReceiptFromUserScreen(),
     DelivaryFromUserScreen(),
     OrderHistoryScreen(),
     ProfileScreen()
   ];
+  int selectedPlayerIdx = 0;
+
+  // void playAlert() async {
+  //   if (audioPlayer.state != audioPlayer.PLAYING) {
+  //     audioPlayer.state = AudioPlayerState.PLAYING;
+  //     audioPlayer = await audioCache.load(Url('sounds/alert.mp3'));
+  //     stop.value = true;
+  //   }
+  // }
+
+  // RxBool stop = false.obs;
+  // void stopAlert() {
+  //   audioPlayer.stop();
+  //   audioPlayer.state = AudioPlayerState!.STOPPED;
+  //   stop.value = false;
+  // }
+
   changeIndexBar(int? index, bool isHome) {
     selectedPageIndex = index;
     if (isHome == false) {

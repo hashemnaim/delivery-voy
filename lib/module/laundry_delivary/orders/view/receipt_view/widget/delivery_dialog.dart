@@ -12,11 +12,13 @@ class DeliveryDialog extends StatelessWidget {
   final int index;
   final String? title;
   final String? totalPrice;
+  final String? StatusId;
 
   DeliveryDialog(
       {required this.onTap,
       required this.onTap2,
       this.totalPrice,
+      this.StatusId,
       this.textButton,
       this.title,
       required this.index});
@@ -51,7 +53,7 @@ class DeliveryDialog extends StatelessWidget {
                   child: CustomText(
                       text: title, fontSize: 20, color: AppColors.primary),
                 ),
-                if (totalPrice == "")
+                if (StatusId == "3")
                   Container()
                 else
                   Column(

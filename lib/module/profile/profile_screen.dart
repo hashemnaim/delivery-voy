@@ -1,4 +1,3 @@
-import 'package:delivery_boy/module/Auth/view/screen/logIn_screen.dart';
 import 'package:delivery_boy/translations/strings_enum.dart';
 import 'package:get/get.dart';
 

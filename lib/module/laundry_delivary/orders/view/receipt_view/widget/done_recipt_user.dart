@@ -105,7 +105,7 @@ class DoneReciptUser extends GetView<OrderController> {
                         fontSize: 15.sp,
                         maxLines: 1,
                         color: Colors.white)),
-                SizedBox(height: 2.h),
+                SizedBox(height: 8.h),
                 CustomText(
                   text: controller.receiptDoneUserOrderModel[index].total
                           .toString() +

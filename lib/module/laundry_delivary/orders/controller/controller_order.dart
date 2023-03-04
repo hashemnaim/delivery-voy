@@ -11,9 +11,9 @@ class OrderController extends GetxController {
       <DataHomeServiceModel>[].obs;
   DetailsHomeModel detailsHomeModel = DetailsHomeModel();
 
-  RxList<Data> receiptUserOrderModel = <Data>[].obs;
   RxList<Data> receiptDoneUserOrderModel = <Data>[].obs;
   RxList<Data> receiptLandryOrderModel = <Data>[].obs;
+  RxList<Data> delivaryLandrOrderModel = <Data>[].obs;
   RxList<Data> delivaryDoneUserOrderModel = <Data>[].obs;
   RxList<Data> HoledOrderModel = <Data>[].obs;
   Rx<OrderModel> newOrderModel = OrderModel().obs;

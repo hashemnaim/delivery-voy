@@ -1,7 +1,10 @@
 class Constants {
   /// Base Url
-  static const baseUrl = 'https://foamklean.com';
-  static const mainUrl = baseUrl + '/api/';
+  /// https://voy-sa.com/admin/api
+  static const String apiKey = "AIzaSyBXe1l4YeBc_V1tICxmDpFoHRW0h-GYqOs";
+
+  static const baseUrl = 'https://voy-sa.com/';
+  static const mainUrl = baseUrl + 'admin/api/';
 
   /// Home
   static const settingsUrl = mainUrl + 'settings';
@@ -27,6 +30,8 @@ class Constants {
   static const deliveryOrdersUrl = mainUrl + 'delivery-orders';
   static const homeOrdersUrl = mainUrl + 'home-services-delivery-orders';
   static const changeStatusOrder = mainUrl + 'change-order-status';
+
+  static const Currancy = "ريال";
 }
 
 // Form Error

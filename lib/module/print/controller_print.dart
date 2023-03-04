@@ -1,13 +1,11 @@
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:sunmi_printer_plus/column_maker.dart';
 import 'package:sunmi_printer_plus/enums.dart';
 import 'package:sunmi_printer_plus/sunmi_printer_plus.dart';
 import 'package:sunmi_printer_plus/sunmi_style.dart';
 import 'package:image/image.dart' as im;
 
 import '../laundry_delivary/orders/model/detailsProduct_model.dart';
-import '../laundry_delivary/orders/model/product_order_model.dart';
 import 'invoice_settings.controller.dart';
 
 class PrintController extends GetxController {
@@ -66,9 +64,9 @@ class PrintController extends GetxController {
     await SunmiPrinter.startTransactionPrint(true);
     await SunmiPrinter.setCustomFontSize(13);
 
-    await SunmiPrinter.printText('Mr Clean',
+    await SunmiPrinter.printText('Voy',
         style: SunmiStyle(
-            fontSize: SunmiFontSize.XL,
+            fontSize: SunmiFontSize.LG,
             bold: true,
             align: SunmiPrintAlign.CENTER));
     await SunmiPrinter.lineWrap(1);
@@ -162,7 +160,7 @@ class PrintController extends GetxController {
     // ]);
     await SunmiPrinter.lineWrap(1);
 
-    await SunmiPrinter.printText("مع كامل الشكر الخالص من تطبيق MrClean",
+    await SunmiPrinter.printText("مع كامل الشكر الخالص من تطبيق Voy",
         style: SunmiStyle(
             fontSize: SunmiFontSize.LG,
             bold: true,

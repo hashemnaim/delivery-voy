@@ -1,9 +1,11 @@
 import 'package:delivery_boy/translations/strings_enum.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
 import '../../../model/detailsProduct_model.dart';
 import '../../../../../../utils/export.dart';
 import '../../../../../Widget/lunchers_helper.dart';
+import 'item_delivary_order.dart';
 
 class CustomerInfo extends StatelessWidget {
   const CustomerInfo({Key? key, required this.data}) : super(key: key);
@@ -32,23 +34,29 @@ class CustomerInfo extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: CustomText(
-                    text: data.address!.address != null
-                        ? data.address!.cityName! +
-                            "\t - " +
-                            data.address!.areaName! +
-                            "\n" +
-                            "${AppStrings.Building.tr} " +
-                            data.address!.building! +
-                            "\t " +
-                            " - ${AppStrings.floor.tr} " +
-                            data.address!.floor! +
-                            "\t " +
-                            " - ${AppStrings.apartment.tr}  " +
-                            data.address!.flat!
-                        : AppStrings.noAddress.tr,
-                    fontSize: 14.sp,
-                    color: Theme.of(context).textTheme.bodyText1!.color),
+                child: InkWell(
+                  onTap: () async {
+                    var position = await Geolocator.getCurrentPosition();
+                    MapUtils.openMap(
+                        double.parse(data.address!.lat!),
+                        double.parse(data.address!.lng!),
+                        position.latitude,
+                        position.longitude);
+                  },
+                  child: CustomText(
+                      text: data.address!.address != null
+                          ? data.address!.address! +
+                              (data.address!.building! == ""
+                                  ? ""
+                                  : " \t - ${AppStrings.Building.tr} ${data.address!.building!} " +
+                                      "\t " +
+                                      "" " - ${AppStrings.floor.tr} ${data.address!.floor!} " +
+                                      "\t " +
+                                      " - ${AppStrings.apartment.tr} ${data.address!.flat!} ")
+                          : AppStrings.noAddress.tr,
+                      fontSize: 14.sp,
+                      color: Theme.of(context).textTheme.bodyText1!.color),
+                ),
               ),
               InkWell(
                   onTap: () {
@@ -58,14 +66,15 @@ class CustomerInfo extends StatelessWidget {
                   child: Padding(
                       padding: EdgeInsets.symmetric(vertical: 6),
                       child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            Icon(Icons.call_outlined,
+                                color: AppColors.bluColor),
                             CustomText(
                                 text: data.userPhone!,
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold),
-                            Icon(Icons.call_outlined, color: AppColors.bluColor)
                           ])))
             ],
           ),

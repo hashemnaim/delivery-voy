@@ -61,22 +61,12 @@ class OrderWidget extends StatelessWidget {
               Expanded(
                   child: CustomText(
                 text: orderModel![index].address != null
-                    ? orderModel![index].address!.cityName! +
-                        "\t - " +
-                        orderModel![index].address!.areaName! +
-                        "\n" +
-                        "${AppStrings.Building.tr} " +
-                        orderModel![index].address!.building! +
-                        "\t " +
-                        " - ${AppStrings.floor.tr} " +
-                        orderModel![index].address!.floor! +
-                        "\t " +
-                        " - ${AppStrings.apartment.tr}  " +
-                        orderModel![index].address!.flat!
+                    ? orderModel![index].address!.address!
                     : AppStrings.noAddress.tr,
               )),
             ],
           ),
+          SizedBox(height: 8.w),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Row(
@@ -89,7 +79,8 @@ class OrderWidget extends StatelessWidget {
                           shape: BoxShape.circle, color: AppColors.primary)),
                   SizedBox(width: 8),
                   CustomText(
-                    text: 'تاريخ : ${orderModel![index].receiptDate}',
+                    text: AppStrings.date.tr +
+                        ' : ${orderModel![index].receiptDate}',
                     fontSize: 14.sp,
                   ),
                 ]),
@@ -102,8 +93,8 @@ class OrderWidget extends StatelessWidget {
                           shape: BoxShape.circle, color: AppColors.primary)),
                   SizedBox(width: 8.w),
                   CustomText(
-                    text:
-                        'الفترة : ${DateConverter.getPeriod(orderModel![index].receiptTime!)}',
+                    text: AppStrings.period.tr +
+                        ' : ${DateConverter.getPeriod(orderModel![index].receiptTime!)}',
                     fontSize: 14.sp,
                   ),
                 ]),
@@ -195,10 +186,5 @@ class MapUtils {
         'https://www.google.com/maps/dir/?api=1&origin=$userLatitude,$userLongitude'
         '&destination=$destinationLatitude,$destinationLongitude&mode=d';
     Launcher.launcher.launchURL(googleUrl);
-    // if (await canLaunch(googleUrl)) {
-    //   await launch(googleUrl);
-    // } else {
-    //   throw 'Could not open the map.';
-    // }
   }
 }

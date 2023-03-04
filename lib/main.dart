@@ -1,5 +1,4 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:delivery_boy/module/init_binding.dart';
 import 'package:delivery_boy/routes/app_pages.dart';
 import 'package:delivery_boy/translations/localization_service.dart';
 import 'package:delivery_boy/translations/tanslation_controller.dart';

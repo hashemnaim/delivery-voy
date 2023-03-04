@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:math' as math;
 
 import 'package:delivery_boy/translations/strings_enum.dart';
@@ -23,10 +24,11 @@ class BottunChangeStatus extends StatelessWidget {
   List<String> listTitle = [
     "",
     "",
+    "",
     AppStrings.receiptcustomerSwipe.tr,
     AppStrings.deliverylaundrySwipe.tr,
     "",
-    AppStrings.receiptlaundrySwipe.tr,
+    AppStrings.deliverycustomerSwipe.tr,
     AppStrings.deliverycustomerSwipe.tr,
   ];
 
@@ -53,7 +55,8 @@ class BottunChangeStatus extends StatelessWidget {
                 textDirection: TextDirection.ltr, // set it to rtl
                 child: SliderButton(
                     action: () {
-                      data.statusId == "2"
+                      log(data.statusId.toString());
+                      data.statusId == "3" || data.statusId == "6"
                           ? showDialog(
                               context: context,
                               barrierDismissible: true,
@@ -67,22 +70,32 @@ class BottunChangeStatus extends StatelessWidget {
                                           await ServerOrder.instance
                                               .changeStatus(
                                                   data.id,
-                                                  (int.parse(data.statusId!) +
-                                                          1)
-                                                      .toString());
+                                                  data.statusId! == "6"
+                                                      ? (int.parse(data
+                                                                  .statusId!) +
+                                                              2)
+                                                          .toString()
+                                                      : (int.parse(data
+                                                                  .statusId!) +
+                                                              1)
+                                                          .toString());
 
                                           Get.offAll(() => MainScreen());
                                         },
                                         onTap2: () async {
                                           await ServerOrder.instance
-                                              .changeStatus(data.id, "9");
+                                              .changeStatus(data.id, "11");
                                           Get.offAll(() => MainScreen());
                                         },
+                                        StatusId: data.statusId,
                                         title:
                                             AppStrings.confirmationcustomer.tr,
                                         index: 0,
-                                        textButton: AppStrings.deliveredDone.tr,
-                                        totalPrice: ""));
+                                        textButton: AppStrings.receive.tr,
+                                        totalPrice: data.statusId == "6"
+                                            ? data.total.toString() +
+                                                AppStrings.currency.tr
+                                            : ""));
                               })
                           : showDialog(
                               context: context,
@@ -101,21 +114,18 @@ class BottunChangeStatus extends StatelessWidget {
                                                           1)
                                                       .toString());
                                           appController.selectedPageIndex =
-                                              data.statusId == "3" ? 0 : 1;
+                                              data.statusId == "5" ? 0 : 1;
 
                                           Get.offAll(() => MainScreen());
                                         },
                                         onTap2: () async {
                                           await ServerOrder.instance
-                                              .changeStatus(data.id, "9");
+                                              .changeStatus(data.id, "10");
 
                                           Get.offAll(() => MainScreen());
                                         },
                                         title: AppStrings.deservedamount.tr,
                                         index: 1,
-                                        textButton: data.statusId == "3"
-                                            ? AppStrings.deliveredDone.tr
-                                            : AppStrings.deservedamount.tr,
                                         totalPrice: data.total.toString() +
                                             AppStrings.currency.tr));
                               });

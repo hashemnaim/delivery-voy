@@ -34,6 +34,8 @@ const Map<String, String> enUs = {
   AppStrings.carpetno: "Carpet Nu",
   AppStrings.totalamount: "Total Amount",
   AppStrings.deliveredDone: "Delivered Done",
+  AppStrings.noPayment: "No Payment",
+  AppStrings.noOrder: "No Order",
   AppStrings.deliveredUserDone: "Delivered User",
 
   AppStrings.receivedCustomer: "Received Customer",
@@ -82,8 +84,8 @@ const Map<String, String> enUs = {
   AppStrings.myProfile: "My Profile",
 
   /////////
-  AppStrings.receiptcustomerSwipe: "Swipe to confirm receipt from the customer",
-  AppStrings.deliverylaundrySwipe: "Swipe to confirm delivery of the laundry",
-  AppStrings.receiptlaundrySwipe: "Swipe to confirm pickup from the laundromat",
+  AppStrings.receiptcustomerSwipe: "Confirm receipt from the customer",
+  AppStrings.deliverylaundrySwipe: "Confirm delivery of the laundry",
+  AppStrings.receiptlaundrySwipe: "Confirm pickup from the laundromat",
   AppStrings.deliverycustomerSwipe: "Pull to confirm customer delivery",
 };

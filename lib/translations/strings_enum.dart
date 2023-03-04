@@ -38,6 +38,7 @@ class AppStrings {
   static const String confirmationcustomer = 'confirmation customer';
   static const String numberproducts = 'number of products';
   static const String paymentmethod = 'Payment method';
+  static const String noPayment = 'noPayment';
   static const String ReceivedDone = 'Received Done';
   static const String cash = 'Cash';
   static const String deservedamount = 'deserved amount';
@@ -69,10 +70,11 @@ class AppStrings {
   static const String number = "number";
 
   ///Address
-  static const String Building = "Building";
-  static const String floor = "floor";
-  static const String apartment = "apartment";
+  static const String Building = "B";
+  static const String floor = "F";
+  static const String apartment = "A";
   static const String noAddress = " no address";
+  static const String noOrder = " no order";
 
   ////////////
   static const String receiptcustomerSwipe =

@@ -1,5 +1,5 @@
 class Address {
-  int? id;
+  String? id;
   String? areaId;
   String? areaName;
   String? cityName;
@@ -25,7 +25,7 @@ class Address {
       this.building});
 
   Address.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    id = json['id'].toString();
     areaId = json['area_id'].toString();
     areaName = json['area_name'];
     cityName = json['city_name'];

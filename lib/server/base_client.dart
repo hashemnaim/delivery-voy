@@ -50,6 +50,7 @@ class BaseClient {
     Function? onLoading,
   }) async {
     try {
+      log(SHelper.sHelper.getToken().toString());
       onLoading?.call();
       var response = await _dio
           .post(

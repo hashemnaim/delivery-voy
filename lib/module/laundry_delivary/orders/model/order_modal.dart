@@ -42,9 +42,10 @@ class Data {
   String? deliveryDate;
   String? deliveryDate2;
   String? delivery;
-  int? subTotal;
-  int? deliveryPrice;
-  int? total;
+  String? updated_at;
+  num? subTotal;
+  num? deliveryPrice;
+  String? total;
   Customer? customer;
   Address? address;
 
@@ -58,6 +59,7 @@ class Data {
       this.deliveryTime,
       this.deliveryTime2,
       this.receiptDate,
+      this.updated_at,
       this.deliveryDate,
       this.deliveryDate2,
       this.delivery,
@@ -81,8 +83,9 @@ class Data {
     deliveryDate2 = json['delivery_date2'];
     delivery = json['delivery'];
     subTotal = json['sub_total'];
+    updated_at = json['updated_at'];
     deliveryPrice = json['delivery_price'];
-    total = json['total'];
+    total = json['total'].toString();
     customer = json['customer'] != null
         ? new Customer.fromJson(json['customer'])
         : null;

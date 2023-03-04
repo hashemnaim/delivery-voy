@@ -62,12 +62,10 @@ class HeaderDetailsOrder extends StatelessWidget {
 
   Widget totalPrice() {
     if (isAdd() == false) {
-      return Center(
-          child: CustomText(text: AppStrings.productsAdd.tr, fontSize: 20));
+      return Center(child: CustomText(text: "", fontSize: 20));
     } else {
       if (isCarpte() == false) {
-        return Center(
-            child: CustomText(text: AppStrings.CarpetAdd.tr, fontSize: 20));
+        return Center(child: CustomText(text: "", fontSize: 20));
       } else {
         return Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

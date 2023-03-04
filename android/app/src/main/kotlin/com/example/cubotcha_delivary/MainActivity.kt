@@ -1,4 +1,4 @@
-package com.app.delivryboy
+package com.madar.deliveryboy
 
 import io.flutter.embedding.android.FlutterActivity
 

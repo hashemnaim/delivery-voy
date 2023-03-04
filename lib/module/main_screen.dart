@@ -74,7 +74,7 @@ class _MainScreenState extends State<MainScreen> {
                       fontSize: 20.h))
                 ]))),
             centerTitle: true,
-            title: CustomPngImage("icon", height: 140, width: 180)),
+            title: CustomPngImage("logo", height: 140, width: 180)),
         backgroundColor: Colors.transparent,
         resizeToAvoidBottomInset: false,
         bottomNavigationBar: NavBottomBarCustom(),

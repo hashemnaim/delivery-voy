@@ -2,10 +2,8 @@ import 'package:delivery_boy/module/laundry_delivary/orders/controller/controlle
 import 'package:delivery_boy/translations/strings_enum.dart';
 import '../../../../../../utils/export.dart';
 import 'package:get/get.dart';
-
 import '../receipt_view/screen/order_details_screen.dart';
-import '../receipt_view/widget/item_order.dart';
-import 'done_delivary_user.dart';
+import '../receipt_view/widget/item_delivary_order.dart';
 
 class DelivaryFromUserScreen extends GetView<OrderController> {
   // final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
@@ -28,26 +26,26 @@ class DelivaryFromUserScreen extends GetView<OrderController> {
                       Divider(),
                       Obx(() => Expanded(
                           flex: 5,
-                          child: controller.receiptLandryOrderModel.isNotEmpty
+                          child: controller.delivaryLandrOrderModel.isNotEmpty
                               ? ListView.builder(
                                   padding: EdgeInsets.zero,
                                   itemCount:
-                                      controller.receiptLandryOrderModel.length,
+                                      controller.delivaryLandrOrderModel.length,
                                   physics: const BouncingScrollPhysics(),
                                   itemBuilder: (context, index) {
                                     return InkWell(
                                         onTap: () {
                                           Get.to(() => OrderDetailsRecpitScreen(
                                                 id: controller
-                                                    .receiptLandryOrderModel[
+                                                    .delivaryLandrOrderModel[
                                                         index]
                                                     .id!,
                                               ));
                                         },
-                                        child: OrderWidget(
+                                        child: DelivaryOrderWidget(
                                             index: index,
                                             orderModel: controller
-                                                .receiptLandryOrderModel));
+                                                .delivaryLandrOrderModel));
                                   })
                               : Center(
                                   child: Column(
@@ -66,8 +64,8 @@ class DelivaryFromUserScreen extends GetView<OrderController> {
                                     ),
                                   ],
                                 )))),
-                      Divider(),
-                      DoneDelivryUser(),
+                      // Divider(),
+                      // DoneDelivryUser(),
                     ]))));
   }
 }

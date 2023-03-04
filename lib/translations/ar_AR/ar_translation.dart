@@ -52,8 +52,10 @@ final Map<String, String> arAR = {
   AppStrings.products: "المنتجات",
   AppStrings.confirmation: "تأكيد",
   AppStrings.add: "إضافة",
+  AppStrings.noOrder: "عدد الطلبات",
   AppStrings.details: "تفاصيل",
   AppStrings.Separateme: "إفرزها عني",
+  AppStrings.noPayment: "لم يتم تحديد",
   AppStrings.ProductsMustAdd: "يجب اضافة المنتجات",
 
   //Date

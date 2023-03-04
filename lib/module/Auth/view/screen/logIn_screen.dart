@@ -22,6 +22,14 @@ class LoginScreen extends GetView<AuthController> {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
                 children: <Widget>[
+                  Container(
+                    child: CustomPngImage(
+                      "logo",
+                      height: 150.h,
+                      width: 150.w,
+                      fit: BoxFit.fitWidth,
+                    ),
+                  ),
                   FadeInRight(
                       duration: Duration(milliseconds: 2000),
                       child: Image.asset(
@@ -29,14 +37,6 @@ class LoginScreen extends GetView<AuthController> {
                         height: 250.h,
                         fit: BoxFit.fitWidth,
                       )),
-                  Container(
-                    child: CustomPngImage(
-                      "icon",
-                      height: 150.h,
-                      width: 250.w,
-                      fit: BoxFit.fitWidth,
-                    ),
-                  ),
                   SizedBox(height: 20.h),
                   CustomTextFormField(
                       hintText: AppStrings.mobile.tr,

@@ -23,21 +23,22 @@ class ReceiptFromUserScreen extends GetView<OrderController> {
               Divider(),
               Expanded(
                   flex: 5,
-                  child: Obx(() => controller.receiptUserOrderModel.isNotEmpty
+                  child: Obx(() => controller.receiptLandryOrderModel.isNotEmpty
                       ? ListView.builder(
                           padding: EdgeInsets.zero,
-                          itemCount: controller.receiptUserOrderModel.length,
+                          itemCount: controller.receiptLandryOrderModel.length,
                           physics: const BouncingScrollPhysics(),
                           itemBuilder: (context, index) {
                             return InkWell(
                                 onTap: () {
                                   Get.to(() => OrderDetailsRecpitScreen(
                                       id: controller
-                                          .receiptUserOrderModel[index].id!));
+                                          .receiptLandryOrderModel[index].id!));
                                 },
                                 child: OrderWidget(
                                   index: index,
-                                  orderModel: controller.receiptUserOrderModel,
+                                  orderModel:
+                                      controller.receiptLandryOrderModel,
                                 ));
                           })
                       : Center(

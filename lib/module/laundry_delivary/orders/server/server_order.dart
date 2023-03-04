@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:delivery_boy/module/laundry_delivary/orders/controller/controller_order.dart';
 import 'package:delivery_boy/module/laundry_delivary/orders/model/order_modal.dart';
@@ -18,12 +19,12 @@ class ServerOrder {
   // ProductController productController = Get.find();
 //////////////////////////////////////////////////////////////////////////
 
-  getOrders() async {
+  getOrders({String? date}) async {
     await BaseClient.baseClient.get(Constants.deliveryOrdersUrl,
         onSuccess: (response) {
-      orderController.receiptUserOrderModel.clear();
-      orderController.receiptDoneUserOrderModel.clear();
       orderController.receiptLandryOrderModel.clear();
+      orderController.receiptDoneUserOrderModel.clear();
+      orderController.delivaryLandrOrderModel.clear();
       orderController.delivaryDoneUserOrderModel.clear();
       orderController.finshOrderModel.clear();
       if (response.data['status'] == 200) {
@@ -32,20 +33,32 @@ class ServerOrder {
 
         for (Data idStatus in orderController.newOrderModel.value.data!) {
           switch (idStatus.statusId) {
-            case "2":
-              orderController.receiptUserOrderModel.add(idStatus);
-              break;
             case "3":
-              orderController.receiptDoneUserOrderModel.add(idStatus);
-              break;
-            case "5":
               orderController.receiptLandryOrderModel.add(idStatus);
               break;
+            case "4":
+              orderController.receiptDoneUserOrderModel.add(idStatus);
+              break;
             case "6":
-              orderController.delivaryDoneUserOrderModel.add(idStatus);
+              orderController.delivaryLandrOrderModel.add(idStatus);
               break;
             case "7":
-              orderController.finshOrderModel.add(idStatus);
+              orderController.delivaryDoneUserOrderModel.add(idStatus);
+              break;
+            case "9":
+              date = date ?? DateTime.now().toString();
+              // log(date!.substring(0, 10));
+              // log(idStatus.updated_at!.toString());
+
+              orderController.finshOrderModel.value = orderController
+                  .newOrderModel.value.data!
+                  .where((element) =>
+                      element.updated_at!.substring(0, 10) ==
+                      date!.substring(0, 10))
+                  .toList();
+              // log(idStatus.toString());
+              // log(orderController.finshOrderModel.toString());
+              // orderController.finshOrderModel.add(idStatus);
               break;
             default:
               break;
@@ -59,7 +72,6 @@ class ServerOrder {
   getOrdersHomeService() async {
     await BaseClient.baseClient.get(Constants.homeOrdersUrl,
         onSuccess: (response) {
-      orderController.receiptUserOrderModel.clear();
       orderController.receiptDoneUserOrderModel.clear();
       orderController.receiptLandryOrderModel.clear();
       orderController.delivaryDoneUserOrderModel.clear();
@@ -70,9 +82,6 @@ class ServerOrder {
 
         for (Data idStatus in orderController.newOrderModel.value.data!) {
           switch (idStatus.statusId) {
-            case "2":
-              orderController.receiptUserOrderModel.add(idStatus);
-              break;
             case "3":
               orderController.receiptDoneUserOrderModel.add(idStatus);
               break;
@@ -166,6 +175,7 @@ class ServerOrder {
 
   changeStatus(int? orderId, String statusId) async {
     CustomDialougs.utils.showCustomLoading();
+    log(statusId);
     await BaseClient.baseClient.post(Constants.changeStatusOrder, data: {
       "order_id": orderId,
       "status_id": statusId,

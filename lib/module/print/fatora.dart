@@ -1,6 +1,7 @@
 // import 'package:date_time_picker/date_time_picker.dart' as piker;
 import 'package:delivery_boy/utils/export.dart';
 import 'package:intl/intl.dart' as i;
+import '../../utils/constants.dart';
 import '../laundry_delivary/orders/model/detailsProduct_model.dart';
 import '../Widget/custom_divider.dart';
 
@@ -145,7 +146,7 @@ class FatoraScreen extends StatelessWidget {
                   text: (double.parse(order!.data!.total.toString()) +
                               double.parse(order!.data!.delivery!))
                           .toString() +
-                      " ريال",
+                      Constants.Currancy,
                   fontSize: 20,
                 ),
               ]),

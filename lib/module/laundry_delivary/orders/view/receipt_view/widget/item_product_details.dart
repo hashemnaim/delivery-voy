@@ -11,7 +11,6 @@ import '../../../../../Widget/custom_button.dart';
 import '../../../controller/controller_order.dart';
 import '../../../model/product_order_model.dart';
 import '../../../server/server_order.dart';
-import '../screen/cloths_product_screen.dart';
 
 class ItmeProductDatiles extends StatefulWidget {
   const ItmeProductDatiles(
@@ -43,35 +42,40 @@ class _ItmeProductDatilesState extends State<ItmeProductDatiles> {
     return ListTile(
         trailing: isNormalProduct == true
             ? isProduct == false
-                ? CustomButton(
-                    text: AppStrings.details.tr,
-                    height: 40.h,
-                    width: 70.w,
-                    fontText: 12.sp,
-                    colorText: Colors.white,
-                    color: AppColors.primary2,
-                    onTap: () async {
-                      await getBottomSheet(
-                          context, widget.index, data.productOrder!, data);
-                    })
+                ? Container() // CustomButton(
+                //     text: AppStrings.details.tr,
+                //     height: 40.h,
+                //     width: 70.w,
+                //     fontText: 12.sp,
+                //     colorText: Colors.white,
+                //     color: AppColors.primary2,
+                //     onTap: () async {
+                //       await getBottomSheet(
+                //           context, widget.index, data.productOrder!, data);
+                //     })
                 : data.numMeters == "0"
-                    ? CustomButton(
-                        text: AppStrings.add.tr,
+                    ? Container(
                         height: 40.h,
                         width: 70.w,
-                        fontText: 12.sp,
-                        colorText: Colors.white,
-                        onTap: () async {
-                          if (isCarpet == true) {
-                            setState(() {
-                              bottomCarpet(context, widget.index,
-                                  data.productOrder!, data, widget.idOrder);
-                            });
-                          } else {
-                            Get.to(() =>
-                                ClothesProductScreen(widget.idOrder, data));
-                          }
-                        })
+                      )
+                    //  CustomButton(
+                    //     text: AppStrings.add.tr,
+                    //     height: 40.h,
+                    //     width: 70.w,
+                    //     fontText: 12.sp,
+                    //     colorText: Colors.white,
+                    //     onTap: () async {
+                    //       if (isCarpet == true) {
+                    //         setState(() {
+                    //           bottomCarpet(context, widget.index,
+                    //               data.productOrder!, data, widget.idOrder);
+                    //         });
+                    //       } else {
+                    //         Get.to(() =>
+                    //             ClothesProductScreen(widget.idOrder, data));
+                    //       }
+                    //     })
+
                     : Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: Text(
@@ -110,10 +114,21 @@ class _ItmeProductDatilesState extends State<ItmeProductDatiles> {
                                     fontSize: 14.sp, height: 1.4.h))
                       ])
                 ])),
-        title: Text("${AppStrings.number.tr} " + data.qty!,
-            textAlign: TextAlign.start,
-            style: rubikMedium.copyWith(
-                fontSize: 16.sp, fontWeight: FontWeight.bold)),
+        title:  Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text("${AppStrings.number.tr} " + data.qty!,
+              style: rubikMedium.copyWith(
+                  fontSize: 16.sp, fontWeight: FontWeight.bold)),
+          data.numMeters == "0"
+              ? Container()
+              : Text(
+                  data.numMeters! + " م ",
+                )
+        ],
+      ),
+      
         contentPadding: EdgeInsets.zero);
   }
 
